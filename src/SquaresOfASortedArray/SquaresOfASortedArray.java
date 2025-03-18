@@ -3,25 +3,24 @@ package SquaresOfASortedArray;
 public class SquaresOfASortedArray {
 
     public static int[] sortedSquares(int[] nums){
-        int result[] = new int[nums.length];
-        int n = nums.length ;
+        int[] result = new int[nums.length];
+        for(int i = 0;i<nums.length;i++){
+            nums[i] = nums[i]*nums[i];
+        }
+        int last = result.length-1;
         int left = 0;
-        int right = n - 1;
-        int index = n-1;
+        int right = nums.length-1;
         while(left<=right){
-            int leftSquare = nums[left] * nums[left];
-            int rightSquare = nums[right] * nums[right];
-            if(leftSquare > rightSquare){
-                result[index] = leftSquare;
-                left++;
-            }
-            else{
-                result[index] = rightSquare;
+            if(nums[left]<nums[right]){
+                result[last] = nums[right];
                 right--;
             }
-            index--;
+            else{
+                result[last] = nums[left];
+                left++;
+            }
+            last--;
         }
-
         return result;
     }
 

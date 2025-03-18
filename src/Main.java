@@ -1,15 +1,54 @@
+import KRadiusSubarrayAverages.KRadiusSubarrayAverage;
+import MaxConsecutiveOnesIII.MaxConsecutiveOnesIII;
 import MaximumAverageSubarray1.MaximumAverageSubArray1;
+import ReverseString.ReverseString;
 import SquaresOfASortedArray.SquaresOfASortedArray;
 
 import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println(Arrays.toString(SquaresOfASortedArray.sortedSquares(new int[]{-4,-1,0,3,10})));
-        System.out.println(findLength("11001011"));
-        System.out.println(numSubArrayProductLessThanK(new int[]{10,5,2,6},100));
-        System.out.println(findBestSubArray(4,new int[]{3,-1,4,12,-8,5,6}));
-        System.out.println(MaximumAverageSubArray1.findMaxAverage(new int[]{1,12,-5,-6,50,3},4));
+        int[] nums = {-7,-3,2,3,11};
+        System.out.println(Arrays.toString(SquaresOfASortedArray.sortedSquares(nums)));
+
+    }
+
+    //[10,4,-8,7] = [10,14,6,13]
+    //[7,4,3,9,1,8,5,2,6]
+    //[7,11,14,23,24,32,37,39,45]
+
+    public static int waysToSplit(int[] nums){
+        int ans = 0;
+        int total = 0;
+        for(int i = 0;i<nums.length;i++){
+            total+=nums[i];
+        }
+        int leftSection = 0;
+        for(int i = 0;i<nums.length;i++){
+            leftSection+=nums[i];
+            int rightSection = total - leftSection;
+            if(leftSection>rightSection){
+                ans++;
+            }
+        }
+
+        return ans;
+    }
+
+    public boolean[] answerQueries(int[] nums, int[][] queries, int limit){
+        int[] prefix = new int[nums.length];
+        prefix[0] = nums[0];
+        for(int i = 1;i<nums.length;i++){
+            prefix[i] = prefix[i-1] + nums[i];
+        }
+        boolean[] ans = new boolean[queries.length];
+        for(int i = 0;i<queries.length;i++){
+            int x = queries[i][0];
+            int y = queries[i][1];
+            int curr = prefix[y] - prefix[x] + nums[x];
+            ans[curr] = curr<limit;
+        }
+        return ans;
     }
 
     public static int findLength(String s){

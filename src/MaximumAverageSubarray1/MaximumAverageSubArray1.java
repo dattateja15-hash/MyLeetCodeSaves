@@ -4,16 +4,16 @@ public class MaximumAverageSubArray1 {
 
     public static double findMaxAverage(int[] nums, int k ){
         double result = 0;
-        double curr = 0;
+        double current = 0;
         for(int i = 0;i<k;i++){
-            curr+=nums[i];
+            current += nums[i];
         }
-        result = curr;
+        result = current;
         for(int i = k;i<nums.length;i++){
-            curr = curr + nums[i] - nums[i-k];
-            result = Math.max(result,curr);
+            current += nums[i] - nums[i-k];
+            result = Math.max(current,result);
         }
-        return result/k;
+        return result/(double)k;
     }
 
 }
